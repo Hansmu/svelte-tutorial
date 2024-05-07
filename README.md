@@ -1,1 +1,1 @@
-# svelte-tutorial
+# Svelte.js tutorial
