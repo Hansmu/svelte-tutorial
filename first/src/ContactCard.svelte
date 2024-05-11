@@ -10,10 +10,15 @@
     div {
         color: midnightblue;
     }
+
+    .some-class {
+        color: yellow;
+    }
 </style>
 
 <div>
-    <div>
+    <!-- Conditional class name application -->
+    <div class:some-class={userName === 'Banana'}>
         {userName}        
     </div>    
 
