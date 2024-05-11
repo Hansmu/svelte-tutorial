@@ -22,11 +22,23 @@
         {userName}        
     </div>    
 
-    <div>
-        {jobTitle}
-    </div>
+    {#if jobTitle === 'Banana'}
+        <div>
+            Passionate about providing potassium
+        </div>
+    {:else if jobTitle === 'Ape'}
+        <div>
+            Passionate about consuming potassium
+        </div>
+    {:else}
+        <div>
+            {jobTitle}
+        </div>
+    {/if}
 
-    <div>
-        {description}
-    </div>
+    {#each description.split(' ') as descriptionPart }
+        <div>
+            {descriptionPart}
+        </div>
+    {/each}
 </div>

@@ -1,5 +1,11 @@
 # Svelte.js tutorial
 
+## React similarities
+If a primitive value changes or a reference to an object changes only then does a component update due to a value change. So you can't just set a property on an object without cloning it and expect it to update the UI.
+
+When handling arrays, and the elements can appear and disappear, you'll need unique identifiers - keys. It's an optimization, and helps to avoid bugs.
+
+## Basic Syntax
 Has similar syntax to React.
 
 To output a variable, you have single curly braces.
@@ -51,4 +57,49 @@ If you want Svelte to parse some input as HTML, then you can add a `@html` tag.
 Obviously shouldn't do it, but in case it's needed.
 ```svelte
 <p>{@html description}</p>
+```
+
+## Block Statements
+
+Block statements start with a `#` in Svelte. They are used for `if` conditions, for example. The end is marked with `{/...}`
+```svelte
+{#if potassiumLevels > 10}
+  <div>Critical levels!</div>
+{/if}
+```
+
+With an if condition, you can add `else` and `else if` with a colon
+```svelte
+{#if val === 'valOne'}
+  <span>A value</span>
+{:else if val === 'valTwo'}
+  <span>Another value</span>
+{:else}
+    <span>Default</span>
+{/if}
+```
+
+For an array, you can use `each`. Index can be accessed using a comma after the element identifier.
+Zero based as usual.
+```svelte
+{#each someArrayThatWeHave as aliasForSingleElement, theCurrentIterationIndexHere}
+  <span>{theCurrentIterationIndexHere} - {aliasForSingleElement}</span>
+{/each}
+```
+
+An array also has a special `:else` case that you can do.
+This means that it'll run when the array is empty.
+```svelte
+{#each someArrayThatWeHave as aliasForSingleElement}
+  <span>{aliasForSingleElement}</span>
+{:else}
+  <strong>No content in this array!</strong>
+{/each}
+```
+
+To add unique keys to arrays, you can do so using parentheses appended to the each statement. In the example, it's `(contact.id)`:
+```svelte
+{#each createdContacts as contact, i (contact.id)}
+
+{/each}
 ```
