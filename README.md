@@ -46,3 +46,9 @@ $: {
 The styles that you add into Svelte components are scoped to that component.
 
 It also automatically removes unused styles when compiling.
+
+If you want Svelte to parse some input as HTML, then you can add a `@html` tag.
+Obviously shouldn't do it, but in case it's needed.
+```svelte
+<p>{@html description}</p>
+```

@@ -52,4 +52,10 @@
 <input type="text" bind:value={title} />
 <input type="text" bind:value={description} />
 
-<ContactCard userName={name} description={description} jobTitle={title}/>
+<!-- If key and value are the same, then you can omit the longer syntax and just add the prop with
+{description} -->
+<ContactCard 
+  userName={name}
+  {description}
+  jobTitle={title}
+/>
