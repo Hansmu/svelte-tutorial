@@ -140,3 +140,44 @@ const dispatch = createEventDispatcher();
 
 dispatch('the-custom-event-name', 'some data for the custom event');
 ```
+
+## Child components - slots
+
+In order to provide child components to another component, you can use something called slots.
+
+Slots aren't a Svelte invention, it's used in web components.
+
+You can have a default slot with no name, and then the rest named.
+```svelte
+<slot />
+
+<slot name="another-slot"/>
+```
+
+To target the slot, you can add `slot="another-slot"` to a child component.
+
+```svelte
+<SomeComponent>
+  <div slot="another-slot">Insert into specific slot</div>
+</SomeComponent>
+```
+
+To give the slots a default, then you add some code as a child to it.
+```svelte
+<slot>
+  <div>Default data shown</div>
+</slot>
+```
+
+Default slot props can be provided to the default slot and used in the default slot. Named slots cannot be used.
+```svelte
+<slot {hovering} />
+```
+
+```svelte
+<AnotherComponent
+    let:hovering={active}
+>
+    <div>{active}</div>
+</AnotherComponent>
+```

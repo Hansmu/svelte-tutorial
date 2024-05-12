@@ -50,10 +50,20 @@
         </div>
     {/each}
 
+    <hr />
     <!-- When a custom event is emitted, then the data that is added to it can be found under `detail` -->
+    <!-- Default slot props can be used only on the default slot.
+            You can do so using the let:<variable-name>={localReferenceName} syntax.
+    -->
     <AnotherComponent
         {...spreadProps}
         on:click={e => console.log(e.target.innerText)}
         on:custom-button-event={(e) => console.log('Custom event data', e.detail)}
-    />
+        let:hovering={active}
+    >
+        <div>{active} - Default slot data here</div>
+        <div slot="targeted-slot">Targeted a specific slot here</div>
+
+        <div slot="slot-with-props">from the slot prop</div>
+    </AnotherComponent>
 </div>

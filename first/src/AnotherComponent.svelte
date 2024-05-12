@@ -18,6 +18,16 @@
             },
         );
     }
+
+    let hovering = false;
+
+    function enter() {
+        hovering = true;
+    }
+
+    function leave() {
+        hovering = false;
+    }
 </script>
 
 <div>{valueOne}</div>
@@ -25,6 +35,21 @@
     <div>{valueThree}</div>
 {/if}
 
+<slot name="targeted-slot"/>
+
 <button on:click>One button</button>
 <button on:click>Two button</button>
 <button on:click={customEventDispatch}>Custom button event</button>
+
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<div on:mouseenter={enter} on:mouseleave={leave}>
+	<slot {hovering} />
+</div>
+
+<slot name="unprovided-slot-example">
+    <div>
+        Since nothing was provided for this slot, then this is the default info that is shown.
+    </div>
+</slot>
+
+<slot name="slot-with-props" />
