@@ -117,3 +117,21 @@ For example, you can use `once` to fire an event only once.
 ```
 
 Two other common things are ``preventDefault``, and ``stopPropagation`` to perform the common tasks of preventing default and stopping propagation.
+
+Events from components can be propagated using similar syntax to adding an event handler, except you omit the handler.
+
+The below example would propagate the event. If the consumer of this component would add an on click listener, then it'd catch what is being omitted by this event.
+```svelte
+<button on:click>Button</button>
+```
+
+In Svelte, you can also add custom events being emitted.
+
+For that, you have the `createEventDispatcher` function from the Svelte library.
+```svelte
+import { createEventDispatcher } from 'svelte';
+
+const dispatch = createEventDispatcher();
+
+dispatch('the-custom-event-name', 'some data for the custom event');
+```

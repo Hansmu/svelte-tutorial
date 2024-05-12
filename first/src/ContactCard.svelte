@@ -1,4 +1,6 @@
 <script lang="ts">
+    import AnotherComponent from "./AnotherComponent.svelte";
+
     // In order to add props, you need to add exported values
     export let userName;
     export let jobTitle;
@@ -41,4 +43,10 @@
             {descriptionPart}
         </div>
     {/each}
+
+    <!-- When a custom event is emitted, then the data that is added to it can be found under `detail` -->
+    <AnotherComponent
+        on:click={e => console.log(e.target.innerText)}
+        on:custom-button-event={(e) => console.log('Custom event data', e.detail)}
+    />
 </div>
