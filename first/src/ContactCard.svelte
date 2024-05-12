@@ -5,6 +5,12 @@
     export let userName;
     export let jobTitle;
     export let description;
+
+    const spreadProps = {
+        valueOne: 'Potassium',
+        valueTwo: 'Fish',
+        random: 'Fandom'
+    };
 </script>
 
 <!-- style tags are scoped in Svelte -->
@@ -46,6 +52,7 @@
 
     <!-- When a custom event is emitted, then the data that is added to it can be found under `detail` -->
     <AnotherComponent
+        {...spreadProps}
         on:click={e => console.log(e.target.innerText)}
         on:custom-button-event={(e) => console.log('Custom event data', e.detail)}
     />

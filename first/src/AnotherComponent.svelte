@@ -1,6 +1,10 @@
 <script>
     import { createEventDispatcher } from 'svelte';
 
+    export let valueOne;
+    // To make a prop optional, you need to give it a default value
+    export let valueThree = undefined;
+
     const dispatch = createEventDispatcher();
 
     function customEventDispatch() {
@@ -15,6 +19,11 @@
         );
     }
 </script>
+
+<div>{valueOne}</div>
+{#if valueThree}
+    <div>{valueThree}</div>
+{/if}
 
 <button on:click>One button</button>
 <button on:click>Two button</button>

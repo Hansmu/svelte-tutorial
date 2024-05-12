@@ -7,6 +7,11 @@ When handling arrays, and the elements can appear and disappear, you'll need uni
 
 Passing functions is done by reference with regular JS syntax. Can create anonymous functions inline as well.
 
+You can spread onto the props for a component like you do in React.
+```svelte
+<CustomComponent {...customObject} />
+```
+
 ## Basic Syntax
 Has similar syntax to React.
 
