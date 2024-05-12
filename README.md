@@ -5,6 +5,8 @@ If a primitive value changes or a reference to an object changes only then does 
 
 When handling arrays, and the elements can appear and disappear, you'll need unique identifiers - keys. It's an optimization, and helps to avoid bugs.
 
+Passing functions is done by reference with regular JS syntax. Can create anonymous functions inline as well.
+
 ## Basic Syntax
 Has similar syntax to React.
 
@@ -103,3 +105,15 @@ To add unique keys to arrays, you can do so using parentheses appended to the ea
 
 {/each}
 ```
+
+## Events
+You can add modifiers to events.
+
+A modifier is added using the pipe (``|``) character followed by a modifier.
+
+For example, you can use `once` to fire an event only once.
+```svelte
+<button>on:click|once={clickFunc}</button>
+```
+
+Two other common things are ``preventDefault``, and ``stopPropagation`` to perform the common tasks of preventing default and stopping propagation.
