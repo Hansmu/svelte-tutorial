@@ -181,3 +181,62 @@ Default slot props can be provided to the default slot and used in the default s
     <div>{active}</div>
 </AnotherComponent>
 ```
+
+## Component lifecycle
+
+You have a bunch of different points that a component passes through during its lifecycle.
+
+These different points can be used for different purposes.
+
+### On creation
+| Method              | When                                                                          | Usage                                                         |
+|---------------------|-------------------------------------------------------------------------------|---------------------------------------------------------------|
+| `<script>` executes | When the component gets used. When it is rendered somewhere in the DOM.       | Basic initialization work like initializing values.           |
+| onMount()           | When the component gets mounted.                                              | Used for more complex initialization work like fetching data. |
+| onDestroy()         | When the component gets unmounted, for example an if-block condition changed. | Any cleanup work for the component.                           |
+
+### On update
+
+`tick()` is a bit more complicated so a slightly longer explanation is needed.
+
+Svelte batches DOM updates for efficiency. When state changes, Svelte doesn't immediately update the DOM; instead, it schedules an update.
+
+The `tick()` method allows you to wait for these scheduled updates to complete.
+
+A good example of a use case for `tick()` would be operating on text in a text area.
+
+Imagine that you had a shortcut, which uppercased the selected text.
+1. You highlight the text
+2. You press the button and the selection becomes uppercased
+3. The highlighted area remains highlighted
+
+Now point 3 - highlighted area remaining is the issue.
+When you update the text, then that leads to a DOM update, which means the highlighted area is dropped.
+
+Whatever you write in your listener function would be executed synchronously, and then after the function has finished, then would a DOM update trigger because the reactive value was updated.
+
+So if you're trying to keep the area highlighted with the logic that you have in the event listener, then you'll fail, because the DOM update removes the highlight.
+
+So, what you'll need is the `tick()` lifecycle method. After the DOM update happens, then will you want to trigger your logic of keeping the text highlight.
+
+You might also consider the `afterUpdate()` method, but that'd be outside the method body.
+
+`tick()`, however, can be called inside the method body.
+
+```js
+function transform(event) {
+    const { selectionStart, selectionEnd } = event.target;
+    
+    text = uppercaseSelection(event);
+    
+    tick().then(() => {
+        setHighlightedArea(event, { selectionStart, selectionEnd });
+    });
+}
+```
+
+| Method         | When                                  | Usage                                                                                                          |
+|----------------|---------------------------------------|----------------------------------------------------------------------------------------------------------------|
+| beforeUpdate() | Right before the real DOM is touched. | Save DOM state before Svelte updates it.                                                                       |
+| afterUpdate()  | After the update has finished.        | Manually update DOM/view after Svelte update. Usually not needed. A valid example would be scrolling the view. |
+| tick()         | When batched DOM updates finish.      | Await Svelte's DOM update.                                                                                     |

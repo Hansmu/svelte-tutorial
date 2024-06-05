@@ -2,6 +2,7 @@
   // When you're importing another component, then the component will be under the default import
   // Same as React, you're going to want to name them in PascalCase, because that's how it differentiates between custom and regular tags
   import ContactCard from './ContactCard.svelte';
+  import LifecycleComponent from "./LifecycleComponent.svelte";
 
   // When you're adding `export` to name, this means that the variable can be set from outside of the component.
 	export let name: string = 'John'; 
@@ -31,6 +32,12 @@
   function onNameChange(event: any) {
       name = event.target!.value;
   }
+
+  let lifecycleComponentEnabled = false;
+
+  function toggleLifecycleComponent() {
+      lifecycleComponentEnabled = !lifecycleComponentEnabled;
+  }
 </script>
 
 <style>
@@ -44,6 +51,16 @@
 <h1>Static number here after first render {agePlusOne}</h1>
 <!-- To add event listeners, you can prepend it with a `on:` -->
 <button on:click={incrementAge}>Increment age</button>
+
+<div>
+    <button on:click={toggleLifecycleComponent}>
+        Toggle lifecycle component
+    </button>
+
+    {#if lifecycleComponentEnabled}
+        <LifecycleComponent />
+    {/if}
+</div>
 <!-- If you add just the `value` setting, then the data is unidirectional. -->
 <!-- If you want it to be bidirectional, then you need to listen for input. -->
 <!-- <input type="text" value={name} on:input={onNameChange} /> -->
