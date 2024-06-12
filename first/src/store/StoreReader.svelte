@@ -1,11 +1,13 @@
 <script lang="ts">
-    import { writableStoreExample, otherWritableStoreExample } from './store';
+    import { writableStoreExample, readableStoreExample } from './store';
     import {onDestroy} from "svelte";
     import {get} from "svelte/store";
 
     let storeNumber: number = 0;
 
     let storedVal: number = 0;
+
+    let lastCheckedStoreValue = 0;
 
     $: {
         if (storedVal === 125) {
@@ -26,7 +28,10 @@
 
     const getCurrentStoreValue = () => {
         // This is one way to get the store value without a subscription, you just call a `get` on it
-        console.log('Getting the store value without subscription', get(writableStoreExample));
+        const storeValue = get(writableStoreExample);
+        console.log('Getting the store value without subscription', storeValue);
+
+        lastCheckedStoreValue = storeValue;
     };
 </script>
 
@@ -35,9 +40,9 @@
 </div>
 
 <div>
-    The automatically subscribed store: { $otherWritableStoreExample }
+    The automatically subscribed store: { $readableStoreExample }
 </div>
 
 <button on:click={getCurrentStoreValue}>
-    Get current store value
+    Get current store value {lastCheckedStoreValue}
 </button>

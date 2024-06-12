@@ -304,3 +304,20 @@ import {someStoreSomewhere} from './somewhere';
 </div>
 
 ```
+
+### Readable stores
+Readable stores do not allow you to set values for it from outside the store.
+
+You have a second parameter, which allows setting the value.
+But that means the setting logic has to be included in the definition.
+
+```js
+export const readableStoreExample = readable(0, (set) => {
+    const interval = setInterval(() => set(Math.random()), 1000);
+    
+    // You should return a cleanup function, which gets called once the store isn't needed anymore
+    return () => {
+        clearInterval(interval);
+    };
+});
+```
