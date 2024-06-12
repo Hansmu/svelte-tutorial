@@ -1,7 +1,8 @@
 <script context="module" lang="ts">
     export enum Example {
         BASICS = 'Basics',
-        FORM_BINDING = 'Form binding'
+        FORM_BINDING = 'Form binding',
+        STORE = 'Store',
     }
 </script>
 

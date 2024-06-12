@@ -245,3 +245,8 @@ function transform(event) {
 
 There is no built-in validation in Svelte.
 You'll want to build your own or pull in a 3rd party library.
+
+## Stores
+
+As your app grows, you'll have different component trees, and you'll need a way to share the data between those.
+
