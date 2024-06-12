@@ -250,3 +250,45 @@ You'll want to build your own or pull in a 3rd party library.
 
 As your app grows, you'll have different component trees, and you'll need a way to share the data between those.
 
+There are readable and writeable stores.
+
+You create these stores by calling methods provided by Svelte.
+
+The store lives in its own JS file, and you can simply import it into any component.
+
+Components can subscribe to the stores, which allow them to react to any changes.
+
+Additionally, the component or anyone else can update the store.
+
+In order to subscribe to a store, you could do something like this:
+```js
+import { writable } from 'svelte/store';
+
+export const writableStoreExample = writable(123);
+
+// In somewhere you'd want to subscribe to it
+writableStoreExample.subscribe(
+    val => console.log('The current value: ', val)
+);
+```
+
+Then if you want to change the value, you can either call:
+* set to set it to a certain value
+* update to change based on the previous value
+```js
+// Remember, if you have objects, then create new objects, don't mutate existing ones, just like in React
+const changeStoreNumber = (changeBy) => {
+    writableStoreExample.update((previousValue) => previousValue + changeBy);
+};
+
+const resetTheStoreValue = () => {
+    writableStoreExample.set(123);
+};
+```
+
+Stores, of course, aren't things that you should reach for as the first option.
+
+You can do things through props and events.
+
+But if the components have no direct relations, then it might be easier to use a store.
+
