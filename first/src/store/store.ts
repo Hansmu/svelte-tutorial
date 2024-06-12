@@ -10,3 +10,14 @@ export const readableStoreExample = readable(123, (set) => {
         unsubscribeFromWritable();
     };
 });
+
+// You can also create a custom store that is usable by Svelte
+// The one thing that is needed is the subscribe method
+const customStoreBase = writable(321);
+
+// You can just return an object with whatever methods, allowing you to centralize the logic of that store into one place
+export const customStore = {
+    subscribe: customStoreBase.subscribe,
+    setTo9000: () => customStoreBase.set(9000),
+    reset: () => customStoreBase.set(321),
+};

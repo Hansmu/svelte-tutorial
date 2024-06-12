@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { writableStoreExample, readableStoreExample } from './store';
+    import { writableStoreExample, readableStoreExample, customStore } from './store';
     import {onDestroy} from "svelte";
     import {get} from "svelte/store";
 
@@ -33,6 +33,12 @@
 
         lastCheckedStoreValue = storeValue;
     };
+
+    const callCustomStoreMethod = () => {
+        customStore.setTo9000();
+
+        setTimeout(customStore.reset, 5000);
+    };
 </script>
 
 <div>
@@ -45,4 +51,8 @@
 
 <button on:click={getCurrentStoreValue}>
     Get current store value {lastCheckedStoreValue}
+</button>
+
+<button on:click={callCustomStoreMethod}>
+    Custom store value { $customStore }
 </button>
