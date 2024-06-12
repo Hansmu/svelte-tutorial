@@ -14,6 +14,10 @@
 
     let checkboxes: string[];
 
+    let boundThisElement: HTMLInputElement;
+
+    let customInput: CustomInput;
+
     $: {
         console.log(radioValue);
     }
@@ -21,12 +25,19 @@
     $: {
         console.log(checkboxes);
     }
+
+    const boundThisValue = () => {
+        console.log(boundThisElement.value);
+        // You can call exported functions from the Svelte element
+        // Rarely need it, but it's there
+        customInput?.noOpFunction();
+    }
 </script>
 
 <h3>Custom input</h3>
 <!-- Using binding should be done sparingly, as it can get out of control -->
 <!-- You might want to reach for event dispatching from a child instead -->
-<CustomInput bind:val />
+<CustomInput bind:val bind:this={customInput} />
 
 <h3>Toggle element</h3>
 <Toggle bind:chosenOption={toggledValue}/>
@@ -71,3 +82,9 @@
     <input type="checkbox" name="checkboxes" value="green" bind:group={checkboxes}/>
     Green
 </label>
+
+<h3>This bind (element ref)</h3>
+<!-- If you want to bind to the DOM element itself, you can use `bind:this`. Kind of like React's ref -->
+<!-- Works on any element, here it's just demoed on an input -->
+<input type="text" bind:this={boundThisElement} />
+<button on:click={boundThisValue} type="button">Save</button>
