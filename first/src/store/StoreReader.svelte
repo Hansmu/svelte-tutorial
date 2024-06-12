@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { writableStoreExample } from './store';
+    import { writableStoreExample, otherWritableStoreExample } from './store';
     import {onDestroy} from "svelte";
 
     let storeNumber: number = 0;
@@ -20,3 +20,6 @@
     The number in the store: {storeNumber}
 </div>
 
+<div>
+    The automatically subscribed store: { $otherWritableStoreExample }
+</div>

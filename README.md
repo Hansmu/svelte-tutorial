@@ -292,3 +292,15 @@ You can do things through props and events.
 
 But if the components have no direct relations, then it might be easier to use a store.
 
+### Auto-managed store subscription
+If you want Svelte to auto-manage your store subscriptions inside your components, then you can prepend your store calls with a dollar sign ($).
+
+```js
+import {someStoreSomewhere} from './somewhere';
+
+<div>
+    <!-- This would automatically get the value and unsubscribe after the component unmounts -->
+    { $someStoreSomewhere }
+</div>
+
+```
