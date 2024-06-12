@@ -240,3 +240,8 @@ function transform(event) {
 | beforeUpdate() | Right before the real DOM is touched. | Save DOM state before Svelte updates it.                                                                       |
 | afterUpdate()  | After the update has finished.        | Manually update DOM/view after Svelte update. Usually not needed. A valid example would be scrolling the view. |
 | tick()         | When batched DOM updates finish.      | Await Svelte's DOM update.                                                                                     |
+
+### Validation
+
+There is no built-in validation in Svelte.
+You'll want to build your own or pull in a 3rd party library.
