@@ -3,6 +3,7 @@
         BASICS = 'Basics',
         FORM_BINDING = 'Form binding',
         STORE = 'Store',
+        ANIMATIONS = 'Animations',
     }
 </script>
 

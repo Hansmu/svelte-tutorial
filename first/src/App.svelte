@@ -3,6 +3,7 @@
     import Basics from "./basics/Basics.svelte";
     import FormBindings from "./formBindings/FormBindings.svelte";
     import StoreExample from "./store/StoreExample.svelte";
+    import Animations from "./animations/AnimationsExample.svelte";
 
     let selectedOption: Example = Example.BASICS;
 
@@ -24,6 +25,10 @@
 
     {#if selectedOption === Example.STORE}
         <StoreExample />
+    {/if}
+
+    {#if selectedOption === Example.ANIMATIONS}
+        <Animations />
     {/if}
 
 </div>
