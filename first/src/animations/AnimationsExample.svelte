@@ -9,7 +9,13 @@
     // Spring is another animation library, but this one takes physics into account and has different kinds of configuration options
     import { spring } from "svelte/motion";
 
+    // Transition effects can be gained from here, but they're utilized a little bit differently
+    // These bind to a directive
+    import { slide, fly, fade, scale } from 'svelte/transition';
+
     const progress = tweened(0);
+
+    let elementRef: HTMLInputElement;
 
     const springStore = spring({
         rotation: 10,
@@ -52,6 +58,12 @@
     // When logging out the spring store values, the same thing can be seen, it's simply a reactive store, that is constantly changing its values
     // From the starting value to the final value
     // $: console.log($springStore);
+
+    let elements: string[] = [];
+
+    const addElement = () => {
+        elements = [...elements, elementRef.value]
+    };
 </script>
 
 <style>
@@ -65,11 +77,42 @@
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
         border-radius: 5px;
     }
+
+    .element {
+        width: 5rem;
+        height: 5rem;
+        background: #ccc;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+        border-radius: 5px;
+    }
+
 </style>
 
 <h2>Motion, Transitions & Animations</h2>
 
 <progress value={$progress}/>
+
+<input bind:this={elementRef}/>
+<button on:click={addElement}>
+    Add element
+</button>
+
+{#each elements as element}
+    <!-- So you've got all of these different transition methods and you can configure all of them with certain parameters as well -->
+    <!-- You need to have the specific ones imported as well -->
+    <div transition:fade class="element">
+        {element}
+    </div>
+    <div transition:scale class="element">
+        {element}
+    </div>
+    <div transition:fly={{ duration: 400, easing: cubicIn, y: 300, x: -300 }} class="element">
+        {element}
+    </div>
+    <div transition:slide class="element">
+        {element}
+    </div>
+{/each}
 
 <button on:click={toggleCardIntoView}>
     Toggle card
