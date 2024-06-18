@@ -16,6 +16,7 @@
     const progress = tweened(0);
 
     let elementRef: HTMLInputElement;
+    let isListToggled = true;
 
     const springStore = spring({
         rotation: 10,
@@ -55,6 +56,10 @@
         }
     };
 
+    const toggleList = () => {
+        isListToggled = !isListToggled;
+    };
+
     // When logging out the spring store values, the same thing can be seen, it's simply a reactive store, that is constantly changing its values
     // From the starting value to the final value
     // $: console.log($springStore);
@@ -86,6 +91,9 @@
         border-radius: 5px;
     }
 
+    .elements-container {
+        display: flex;
+    }
 </style>
 
 <h2>Motion, Transitions & Animations</h2>
@@ -97,25 +105,41 @@
     Add element
 </button>
 
-{#each elements as element}
-    <!-- So you've got all of these different transition methods and you can configure all of them with certain parameters as well -->
-    <!-- You need to have the specific ones imported as well -->
-    <div transition:fade class="element">
-        {element}
+{#if isListToggled}
+    <div class="elements-container">
+            {#each elements as element}
+                <!-- So you've got all of these different transition methods and you can configure all of them with certain parameters as well -->
+                <!-- You need to have the specific ones imported as well -->
+                <div transition:fade class="element">
+                    {element}
+                </div>
+                <!-- You have a couple of options to listen to the animation lifecycle as well -->
+                <!-- Introstart/introend for when the entrance animation starts/ends -->
+                <!-- Outrostart/outroend for when the exit animation starts/ends -->
+                <div
+                    transition:scale class="element"
+                    on:introstart={() => console.log('Adding the element starts')}
+                    on:introend={() => console.log('Adding the element ends')}
+                    on:outrostart={() => console.log('Removing the element starts')}
+                    on:outroend={() => console.log('Removing the element ends')}
+                >
+                    {element}
+                </div>
+                <div transition:fly={{ duration: 400, easing: cubicIn, y: 300, x: -300 }} class="element">
+                    {element}
+                </div>
+                <div transition:slide class="element">
+                    {element}
+                </div>
+            {/each}
     </div>
-    <div transition:scale class="element">
-        {element}
-    </div>
-    <div transition:fly={{ duration: 400, easing: cubicIn, y: 300, x: -300 }} class="element">
-        {element}
-    </div>
-    <div transition:slide class="element">
-        {element}
-    </div>
-{/each}
+{/if}
 
 <button on:click={toggleCardIntoView}>
     Toggle card
+</button>
+<button on:click={toggleList}>
+    Toggle list
 </button>
 
 <div class="card" style="transform: rotateZ({$springStore.rotation}deg) translateX({$springStore.dx}px)" />
