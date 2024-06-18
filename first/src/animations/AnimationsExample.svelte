@@ -128,7 +128,8 @@
                 <div transition:fly={{ duration: 400, easing: cubicIn, y: 300, x: -300 }} class="element">
                     {element}
                 </div>
-                <div transition:slide class="element">
+                <!-- If you want different animations for elements coming in and out, then you can do that with the in: and out: directives -->
+                <div in:fade out:slide class="element">
                     {element}
                 </div>
             {/each}
