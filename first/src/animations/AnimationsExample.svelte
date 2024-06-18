@@ -13,6 +13,10 @@
     // These bind to a directive
     import { slide, fly, fade, scale } from 'svelte/transition';
 
+    // Flip helps to animate elements that are moved in the UI because of another element
+    // However, it has to be part of an each block
+    import { flip } from 'svelte/animate';
+
     const progress = tweened(0);
 
     let elementRef: HTMLInputElement;
@@ -67,7 +71,7 @@
     let elements: string[] = [];
 
     const addElement = () => {
-        elements = [...elements, elementRef.value]
+        elements = [elementRef.value, ...elements]
     };
 </script>
 
@@ -107,30 +111,33 @@
 
 {#if isListToggled}
     <div class="elements-container">
-            {#each elements as element}
-                <!-- So you've got all of these different transition methods and you can configure all of them with certain parameters as well -->
-                <!-- You need to have the specific ones imported as well -->
-                <div transition:fade class="element">
-                    {element}
-                </div>
-                <!-- You have a couple of options to listen to the animation lifecycle as well -->
-                <!-- Introstart/introend for when the entrance animation starts/ends -->
-                <!-- Outrostart/outroend for when the exit animation starts/ends -->
-                <div
-                    transition:scale class="element"
-                    on:introstart={() => console.log('Adding the element starts')}
-                    on:introend={() => console.log('Adding the element ends')}
-                    on:outrostart={() => console.log('Removing the element starts')}
-                    on:outroend={() => console.log('Removing the element ends')}
-                >
-                    {element}
-                </div>
-                <div transition:fly={{ duration: 400, easing: cubicIn, y: 300, x: -300 }} class="element">
-                    {element}
-                </div>
-                <!-- If you want different animations for elements coming in and out, then you can do that with the in: and out: directives -->
-                <div in:fade out:slide class="element">
-                    {element}
+            {#each elements as element, i (i)}
+                <!-- Need to have a key set for the loop to be able to use animate:flip -->
+                <div animate:flip>
+                    <!-- So you've got all of these different transition methods and you can configure all of them with certain parameters as well -->
+                    <!-- You need to have the specific ones imported as well -->
+                    <div transition:fade class="element">
+                        {element}
+                    </div>
+                    <!-- You have a couple of options to listen to the animation lifecycle as well -->
+                    <!-- Introstart/introend for when the entrance animation starts/ends -->
+                    <!-- Outrostart/outroend for when the exit animation starts/ends -->
+                    <div
+                        transition:scale class="element"
+                        on:introstart={() => console.log('Adding the element starts')}
+                        on:introend={() => console.log('Adding the element ends')}
+                        on:outrostart={() => console.log('Removing the element starts')}
+                        on:outroend={() => console.log('Removing the element ends')}
+                    >
+                        {element}
+                    </div>
+                    <div transition:fly={{ duration: 400, easing: cubicIn, y: 300, x: -300 }} class="element">
+                        {element}
+                    </div>
+                    <!-- If you want different animations for elements coming in and out, then you can do that with the in: and out: directives -->
+                    <div in:fade out:slide class="element">
+                        {element}
+                    </div>
                 </div>
             {/each}
     </div>
