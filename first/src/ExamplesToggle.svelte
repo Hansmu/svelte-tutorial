@@ -4,6 +4,7 @@
         FORM_BINDING = 'Form binding',
         STORE = 'Store',
         ANIMATIONS = 'Animations',
+        FETCHING = 'Fetching data',
     }
 </script>
 
