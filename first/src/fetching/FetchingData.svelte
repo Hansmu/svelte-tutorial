@@ -31,49 +31,35 @@
 </script>
 
 <script lang="ts">
-    import {onMount} from "svelte";
+    const getUsers = fetch('https://jsonplaceholder.typicode.com/users', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    }).then(res => {
+        if (!res.ok) {
+            throw new Error('Unsuccessful response');
+        }
 
-    let users: User[] = [];
-    let isLoading = false;
-
-    const fetchUsers = () => {
-        isLoading = true;
-
-        fetch('https://jsonplaceholder.typicode.com/users', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        }).then(res => {
-            if (!res.ok) {
-                throw new Error('Unsuccessful response');
-            }
-
-            return res.json();
-        }).then(json => {
-            users = json;
-        }).catch(err => {
-            console.log(err);
-        }).finally(() => {
-            isLoading = false;
-        });
-    };
-
-    onMount(() => {
-        fetchUsers();
+        return res.json();
+    }).catch(err => {
+        console.log(err);
     });
 </script>
 
 <h2>Fetching data example</h2>
 
-{#if isLoading}
+<!-- Svelte has its own await block to handle requests -->
+{#await getUsers}
     <div>
         Loading...
     </div>
-{/if}
-
-{#each users as user (user.id)}
-    <div>
-        {user.name}
-    </div>
-{/each}
+{:then users}
+    {#each users as user (user.id)}
+        <div>
+            {user.name}
+        </div>
+    {/each}
+{:catch error}
+    <p>{error.message}</p>
+{/await}
