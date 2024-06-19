@@ -5,6 +5,7 @@
         STORE = 'Store',
         ANIMATIONS = 'Animations',
         FETCHING = 'Fetching data',
+        SPECIAL_ELEMENTS = 'Special elements',
     }
 </script>
 

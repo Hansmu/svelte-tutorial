@@ -5,6 +5,7 @@
     import StoreExample from "./store/StoreExample.svelte";
     import Animations from "./animations/AnimationsExample.svelte";
     import FetchingData from "./fetching/FetchingData.svelte";
+    import SpecialElements from "./specialElements/SpecialElements.svelte";
 
     let selectedOption: Example = Example.BASICS;
 
@@ -34,6 +35,10 @@
 
     {#if selectedOption === Example.FETCHING}
         <FetchingData />
+    {/if}
+
+    {#if selectedOption === Example.SPECIAL_ELEMENTS}
+        <SpecialElements />
     {/if}
 
 </div>
