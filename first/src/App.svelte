@@ -12,33 +12,21 @@
     $: {
         console.log(selectedOption)
     }
+
+    const renderedComponent: Record<Example, ConstructorOfATypedSvelteComponent> = {
+        [Example.BASICS]: Basics,
+        [Example.FORM_BINDING]: FormBindings,
+        [Example.STORE]: StoreExample,
+        [Example.ANIMATIONS]: Animations,
+        [Example.FETCHING]: FetchingData,
+        [Example.SPECIAL_ELEMENTS]: SpecialElements,
+    };
 </script>
 
 <ExamplesToggle bind:chosenOption={selectedOption} />
 
 <div>
-    {#if selectedOption === Example.BASICS}
-        <Basics />
-    {/if}
-
-    {#if selectedOption === Example.FORM_BINDING}
-        <FormBindings />
-    {/if}
-
-    {#if selectedOption === Example.STORE}
-        <StoreExample />
-    {/if}
-
-    {#if selectedOption === Example.ANIMATIONS}
-        <Animations />
-    {/if}
-
-    {#if selectedOption === Example.FETCHING}
-        <FetchingData />
-    {/if}
-
-    {#if selectedOption === Example.SPECIAL_ELEMENTS}
-        <SpecialElements />
-    {/if}
-
+    <!-- In order to dynamically set a component to be rendered, you can use the svelte:component component -->
+    <!-- Can also add props to it as you normally would and then they get forwarded to the components -->
+    <svelte:component this={renderedComponent[selectedOption]} />
 </div>
