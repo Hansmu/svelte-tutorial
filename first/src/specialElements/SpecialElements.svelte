@@ -1,3 +1,10 @@
+<!-- In order to have something only run once per file, you can use the context="module" option on the script. -->
+<!-- It means that this bit of code is only run the first time this file is imported in any other file, and then never again. -->
+<!-- An usual use case for this would be to include data you want to share between all of the components of the same type. -->
+<script context="module" lang="ts">
+
+</script>
+
 <script lang="ts">
     import TreeNode, {type Node} from "./TreeNode.svelte";
 
