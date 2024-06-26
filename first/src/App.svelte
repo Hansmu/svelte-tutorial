@@ -10,7 +10,7 @@
     let selectedOption: Example = Example.BASICS;
 
     $: {
-        console.log(selectedOption)
+        console.log(selectedOption);
     }
 
     const renderedComponent: Record<Example, ConstructorOfATypedSvelteComponent> = {
@@ -22,6 +22,11 @@
         [Example.SPECIAL_ELEMENTS]: SpecialElements,
     };
 </script>
+
+<!-- To access the head of the DOM document, you can use the svelte:head tag. -->
+<svelte:head>
+    <title>{selectedOption}</title>
+</svelte:head>
 
 <ExamplesToggle bind:chosenOption={selectedOption} />
 
